@@ -26,7 +26,7 @@ import model.Customer;
  */
 
 
-@WebServlet(name = "CustomerServlet", urlPatterns = "/Customer")
+@WebServlet(name = "CustomerServlet", urlPatterns = "/customers")
 public class CustomerController extends HttpServlet {
 
     private Gson gson = new GsonBuilder().create();
