@@ -11,6 +11,7 @@ package model;
  */
 public class Drink {
 
+    private int id_drink;
     private String name_drink;
     private double price;
     private String img;
@@ -19,14 +20,30 @@ public class Drink {
 
     public Drink() {
     }
-    
-    
+
+    public Drink(int id_drink, String name_drink, double price, String img, int id_type, String descript) {
+        this.id_drink = id_drink;
+        this.name_drink = name_drink;
+        this.price = price;
+        this.img = img;
+        this.id_type = id_type;
+        this.descript = descript;
+    }
+
     public Drink(String name_drink, double price, String img, int id_type, String descript) {
         this.name_drink = name_drink;
         this.price = price;
         this.img = img;
         this.id_type = id_type;
         this.descript = descript;
+    }
+
+    public int getId_drink() {
+        return id_drink;
+    }
+
+    public void setId_drink(int id_drink) {
+        this.id_drink = id_drink;
     }
 
     public String getName_drink() {

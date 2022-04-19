@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.DrinkDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.CommonResponse;
+import api.model.CommonResponse;
 import model.Drink;
 
 /**
@@ -25,7 +26,7 @@ import model.Drink;
 public class GetDrinksServlet extends HttpServlet {
 
     private Gson gson = new GsonBuilder().create();
-    private CoffeeDao coffeeDao = new CoffeeDao();
+    private DrinkDao coffeeDao = new DrinkDao();
 
     public GetDrinksServlet() {
         super();
