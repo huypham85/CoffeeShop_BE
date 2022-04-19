@@ -13,20 +13,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Customer;
+import model.Drink;
 import utils.NetworkUtils;
 
 /**
  *
- * @author hdmin
+ * @author HUY PHAM
  */
-public class CustomerDao {
+public class DrinkDao {
 
-    private static final String INSERT_CUSTOMER = "INSERT INTO customer (name_customer, phone_number, address) values (?,?,?)";
-    private static final String GET_CUSTOMERS = "SELECT name_customer, phone_number, address FROM customer";
-    private static final String UPDATE_CUSTOMER = "UPDATE customer set phone_number = ?, address = ? WHERE name_customer = ?";
-    private static final String DELETE_CUSTOMER = "DELETE from customer WHERE name_customer = ?";
+    private static final String INSERT_DRINK = "INSERT INTO drink (name_drink, price, img, id_type, descript) values (?,?,?,?,?)";
+    private static final String GET_DRINKS = "SELECT id_drink, name_drink, price, img, id_type, descript FROM drink";
+    private static final String UPDATE_DRINK = "UPDATE drink set name_drink = ?, price = ?, img = ?, id_type = ?, descript = ? WHERE id_drink = ?";
+    private static final String DELETE_DRINK = "DELETE from drink WHERE id_drink = ?";
 
-    public int insertNewCustomer(Customer customer) {
+    public int insertNewDrink(Drink drink) {
         int result = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -37,23 +38,26 @@ public class CustomerDao {
         try ( Connection connection = DriverManager
                 .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
-                        .prepareStatement(INSERT_CUSTOMER)) {
+                        .prepareStatement(INSERT_DRINK)) {
 
-            preparedStatement.setString(1, customer.getName_customer());
-            preparedStatement.setString(2, customer.getPhone_number());
-            preparedStatement.setString(3, customer.getAddress());
+            preparedStatement.setString(1, drink.getName_drink());
+            preparedStatement.setDouble(2, drink.getPrice());
+            preparedStatement.setString(3, drink.getImg());
+            preparedStatement.setInt(4, drink.getId_type());
+            preparedStatement.setString(5, drink.getDescript());
 
             // sends the statement to the database server
             result = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
+            // process INSERT_DRINK exception
             printSQLException(e);
         }
         return result;
     }
 
-    public List<Customer> getCustomers() {
-        List<Customer> list = new ArrayList<Customer>();
+    public List<Drink> getDrinks() {
+        List<Drink> list = new ArrayList<Drink>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -64,26 +68,29 @@ public class CustomerDao {
         try ( Connection connection = DriverManager
                 .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
-                        .prepareStatement(GET_CUSTOMERS)) {
+                        .prepareStatement(GET_DRINKS)) {
 
             // sends the statement to the database server
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
-                Customer customer = new Customer();
-                customer.setName_customer(result.getString(1));
-                customer.setPhone_number(result.getString(2));
-                customer.setAddress(result.getString(3));
-                list.add(customer);
+                Drink drink = new Drink();
+                drink.setId_drink(result.getInt(1));
+                drink.setName_drink(result.getString(2));
+                drink.setPrice(result.getDouble(3));
+                drink.setImg(result.getString(4));
+                drink.setId_type(result.getInt(5));
+                drink.setDescript(result.getString(6));
+                list.add(drink);
             }
 
         } catch (SQLException e) {
-
+            // process INSERT_DRINK exception
             printSQLException(e);
         }
         return list;
     }
 
-    public int updateCustomer(Customer customer) {
+    public int updateDrink(Drink drink) {
         int result = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -94,12 +101,14 @@ public class CustomerDao {
         try ( Connection connection = DriverManager
                 .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
-                        .prepareStatement(UPDATE_CUSTOMER)) {
+                        .prepareStatement(UPDATE_DRINK)) {
 
-            preparedStatement.setString(3, customer.getName_customer());
-            preparedStatement.setString(1, customer.getPhone_number());
-            preparedStatement.setString(2, customer.getAddress());
-
+            preparedStatement.setString(1, drink.getName_drink());
+            preparedStatement.setDouble(2, drink.getPrice());
+            preparedStatement.setString(3, drink.getImg());
+            preparedStatement.setInt(4, drink.getId_type());
+            preparedStatement.setString(5, drink.getDescript());
+            preparedStatement.setInt(6, drink.getId_drink());
             // sends the statement to the database server
             result = preparedStatement.executeUpdate();
 
@@ -108,8 +117,8 @@ public class CustomerDao {
         }
         return result;
     }
-
-    public int deleteCustomer(Customer customer) {
+    
+    public int deleteDrink(int id_drink) {
         int result = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -120,10 +129,8 @@ public class CustomerDao {
         try ( Connection connection = DriverManager
                 .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
-                        .prepareStatement(DELETE_CUSTOMER)) {
-
-            preparedStatement.setString(3, customer.getName_customer());
-
+                        .prepareStatement(DELETE_DRINK)) {
+            preparedStatement.setInt(1, id_drink);
             // sends the statement to the database server
             result = preparedStatement.executeUpdate();
 
