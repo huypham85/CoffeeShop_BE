@@ -25,7 +25,7 @@ public class GetDrinkDao {
     private static final String password = "fb891e29";
 
     private static final String INSERT_CUSTOMER = "INSERT INTO customer (name_customer, phone_number, address) values (?,?,?)";
-    private static final String GET_DRINKS_BY_CATEGORY = "SELECT name_drink, price, img, id_type, descript FROM drink WHERE id_type=?";
+    private static final String GET_DRINKS_BY_CATEGORY = "SELECT name_drink, price, img, id_type, descript FROM drink WHERE id_type = ?";
     private static final String GET_DRINKS_BY_NAME = "SELECT * FROM drink WHERE name_drink LIKE ?";
     private static final String GET_TOPPING_BY_DRINK = "SELECT * FROM drinktopping WHERE id_drink = ?";
     private static final String GET_SIZE = "SELECT * FROM size";

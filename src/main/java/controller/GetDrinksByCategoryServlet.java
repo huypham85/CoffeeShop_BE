@@ -38,13 +38,10 @@ public class GetDrinksByCategoryServlet extends HttpServlet{
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
-        IdTypeDrink idTypeDrink = gson.fromJson(request.getReader(), IdTypeDrink.class);
-        System.out.println(idTypeDrink.getId_type());
-        List<Drink> list = drinkDao.getDrinksByCategory(idTypeDrink.getId_type());
-
+         System.out.println("");
+        String idTypeDr = request.getParameter("id_type"); 
+        List<Drink> list = drinkDao.getDrinksByCategory(Integer.parseInt(idTypeDr));
         String listDrinksString = this.gson.toJson(list);
-
         PrintWriter out = response.getWriter();
         out.print(listDrinksString);
         out.close();
