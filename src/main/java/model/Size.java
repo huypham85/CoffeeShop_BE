@@ -7,45 +7,57 @@ package model;
 
 /**
  *
- * @author HUY PHAM
+ * @author hdmin
  */
 public class Size {
-    private int id;
-    private double percentPlus;
-    private String nameSize;
-
-    public Size() {
+    private int id_size;
+    private String name_size;
+    private Float percent_plus;
+    
+    public Size()
+    {
     }
 
-    public Size(int id, double percentPlus, String nameSize) {
-        this.id = id;
-        this.percentPlus = percentPlus;
-        this.nameSize = nameSize;
+    public Size(int id_size, String name_size, Float percent_plus) {
+        this.id_size = id_size;
+        this.name_size = name_size;
+        this.percent_plus = percent_plus;
     }
 
-    public int getId() {
-        return id;
+    public Size(String name_size, Float percent_plus) {
+        this.name_size = name_size;
+        this.percent_plus = percent_plus;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId_size() {
+        return id_size;
     }
 
-    public double getPercentPlus() {
-        return percentPlus;
+    public void setId_size(int id_size) {
+        this.id_size = id_size;
     }
 
-    public void setPercentPlus(double percentPlus) {
-        this.percentPlus = percentPlus;
+    public String getName_size() {
+        return name_size;
     }
 
-    public String getNameSize() {
-        return nameSize;
+    public void setName_size(String name_size) {
+        this.name_size = name_size;
     }
 
-    public void setNameSize(String nameSize) {
-        this.nameSize = nameSize;
+    public Float getPercent_plus() {
+        return percent_plus;
     }
 
+    public void setPercent_plus(Float percent_plus) {
+        this.percent_plus = percent_plus;
+    }
+
+   
+
+    
+    
+    
+    
     
 }

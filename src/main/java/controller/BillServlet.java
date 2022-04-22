@@ -5,7 +5,6 @@
  */
 package controller;
 
-import dao.DrinkDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -15,20 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import api.model.CommonResponse;
-import api.model.IdDrinkDelete;
-import model.Drink;
+import api.model.IdBillDelete;
+import dao.BillDao;
+import java.util.List;
+import model.Bill;
 
 /**
  *
  * @author HUY PHAM
  */
-@WebServlet(name = "DrinkServlet", urlPatterns = "/drink")
-public class DrinkServlet extends HttpServlet {
+@WebServlet(name = "BillServlet", urlPatterns = "/bill")
+public class BillServlet extends HttpServlet {
 
     private Gson gson = new GsonBuilder().create();
-    private DrinkDao drinkDao = new DrinkDao();
+    private BillDao billDao = new BillDao();
 
-    public DrinkServlet() {
+    public BillServlet() {
         super();
     }
 
@@ -40,8 +41,8 @@ public class DrinkServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Drink drink = this.gson.fromJson(request.getReader(), Drink.class);
-        drinkDao.insertNewDrink(drink);
+        Bill bill = this.gson.fromJson(request.getReader(), Bill.class);
+        billDao.insertNewBill(bill);
         CommonResponse commonResponse = new CommonResponse("post successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
@@ -51,21 +52,19 @@ public class DrinkServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPut(
+    protected void doGet(
             HttpServletRequest request,
             HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Drink drink = this.gson.fromJson(request.getReader(), Drink.class);
-        System.out.println(this.gson.toJson(drink));
-        drinkDao.updateDrink(drink);
-        CommonResponse commonResponse = new CommonResponse("update successfully");
-        String commonResponseString = this.gson.toJson(commonResponse);
+        List<Bill> list = billDao.getBills();
+
+        String listBillsString = this.gson.toJson(list);
 
         PrintWriter out = response.getWriter();
-        out.print(commonResponseString);
+        out.print(listBillsString);
         out.close();
     }
     
@@ -76,9 +75,9 @@ public class DrinkServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        String id_drink = request.getParameter("id_drink");
-        drinkDao.deleteDrink(Integer.parseInt(id_drink));
+        String id_bill = request.getParameter("id_bill");
+        System.out.println(id_bill);
+        billDao.deleteBill(Integer.parseInt(id_bill));
         CommonResponse commonResponse = new CommonResponse("delete successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 

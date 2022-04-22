@@ -90,7 +90,7 @@ public class GetDrinkDao {
             ResultSet result = preparedStatement.executeQuery();
             while(result.next()){
                 Drink drink = new Drink();
-                drink.setId(result.getInt(1));
+                drink.setId_drink(result.getInt(1));
                 drink.setName_drink(result.getString(2));
                 drink.setPrice(result.getDouble(3));
                 drink.setImg(result.getString(4));
@@ -159,9 +159,9 @@ public class GetDrinkDao {
             ResultSet result = preparedStatement.executeQuery();
             while(result.next()){
                 Size size = new Size();
-                size.setId(result.getInt(1));
-                size.setPercentPlus(result.getDouble(2));
-                size.setNameSize(result.getString(3));
+                size.setId_size(result.getInt(1));
+                size.setPercent_plus(result.getFloat(2));
+                size.setName_size(result.getString(3));
                 list.add(size);
             }
 
@@ -216,9 +216,9 @@ public class GetDrinkDao {
             preparedStatement.setInt(1, id);
             ResultSet result = preparedStatement.executeQuery();
             if (result.next()){
-                res.setId(result.getInt(1));
-                res.setNameTopping(result.getString(2));
-                res.setPricePlus(result.getDouble(3));
+                res.setId_topping(result.getInt(1));
+                res.setName_topping(result.getString(2));
+                res.setPrice_plus(result.getDouble(3));
             }
 
         } catch (SQLException e) {

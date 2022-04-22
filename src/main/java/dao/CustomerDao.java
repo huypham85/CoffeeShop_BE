@@ -13,15 +13,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Customer;
+import utils.NetworkUtils;
+import static utils.NetworkUtils.password;
+import static utils.NetworkUtils.url;
+import static utils.NetworkUtils.user;
 
 /**
  *
  * @author hdmin
  */
 public class CustomerDao {
-    private static final String url = "jdbc:mysql://us-cdbr-east-05.cleardb.net:3306/heroku_f866d7997438cb1?useSSL=false";
-    private static final String user = "bf9faddc3d7c52";
-    private static final String password = "fb891e29";
 
     private static final String INSERT_CUSTOMER = "INSERT INTO customer (name_customer, phone_number, address) values (?,?,?)";
     private static final String GET_CUSTOMERS = "SELECT name_customer, phone_number, address FROM customer";
@@ -39,7 +40,7 @@ public class CustomerDao {
         }
 
         try ( Connection connection = DriverManager
-                .getConnection(url, user, password); // Step 2:Create a statement using connection object
+                .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
                         .prepareStatement(INSERT_CUSTOMER)) {
 
@@ -55,10 +56,10 @@ public class CustomerDao {
         }
         return result;
     }
-    
-    public List<Customer> getCustomers(){
+
+    public List<Customer> getCustomers() {
         List<Customer> list = new ArrayList<Customer>();
-        
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e1) {
@@ -66,13 +67,13 @@ public class CustomerDao {
         }
 
         try ( Connection connection = DriverManager
-                .getConnection(url, user, password); // Step 2:Create a statement using connection object
+                .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
                         .prepareStatement(GET_CUSTOMERS)) {
 
             // sends the statement to the database server
             ResultSet result = preparedStatement.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 Customer customer = new Customer();
                 customer.setName_customer(result.getString(1));
                 customer.setPhone_number(result.getString(2));
@@ -160,7 +161,7 @@ public class CustomerDao {
         }
 
         try ( Connection connection = DriverManager
-                .getConnection(url, user, password); // Step 2:Create a statement using connection object
+                .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
                         .prepareStatement(UPDATE_CUSTOMER)) {
 
@@ -186,7 +187,7 @@ public class CustomerDao {
         }
 
         try ( Connection connection = DriverManager
-                .getConnection(url, user, password); // Step 2:Create a statement using connection object
+                .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
                   PreparedStatement preparedStatement = connection
                         .prepareStatement(DELETE_CUSTOMER)) {
 

@@ -10,43 +10,47 @@ package model;
  * @author HUY PHAM
  */
 public class Topping {
-    private int id;
-    private String nameTopping;
-    private double pricePlus;
-    
+    private int id_topping;
+    private String name_topping;
+    private double price_plus;
 
     public Topping() {
     }
 
-    public Topping(int id, String nameTopping, double pricePlus) {
-        this.id = id;
-        this.nameTopping = nameTopping;
-        this.pricePlus = pricePlus;
+    public Topping(int id_topping, String name_topping, double price_plus) {
+        this.id_topping = id_topping;
+        this.name_topping = name_topping;
+        this.price_plus = price_plus;
     }
 
-    public int getId() {
-        return id;
+    public Topping(String name_topping, double price_plus) {
+        this.name_topping = name_topping;
+        this.price_plus = price_plus;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId_topping() {
+        return id_topping;
     }
 
-    public String getNameTopping() {
-        return nameTopping;
+    public void setId_topping(int id_topping) {
+        this.id_topping = id_topping;
     }
 
-    public void setNameTopping(String nameTopping) {
-        this.nameTopping = nameTopping;
+    public String getName_topping() {
+        return name_topping;
     }
 
-    public double getPricePlus() {
-        return pricePlus;
+    public void setName_topping(String name_topping) {
+        this.name_topping = name_topping;
     }
 
-    public void setPricePlus(double pricePlus) {
-        this.pricePlus = pricePlus;
+    public double getPrice_plus() {
+        return price_plus;
     }
 
+    public void setPrice_plus(double price_plus) {
+        this.price_plus = price_plus;
+    }
+    
     
 }
