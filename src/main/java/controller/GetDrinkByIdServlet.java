@@ -15,22 +15,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.CommonResponse;
 import model.Drink;
-import model.IdTypeDrink;
+import model.DrinkDetail;
 
 /**
  *
- * @author Dang Dung
+ * @author HUY PHAM
  */
-@WebServlet(name = "SearchDrinkByNameServlet", urlPatterns = "/search-drink-by-name-servlet")
-public class SearchDrinkByNameServlet extends HttpServlet{
-    private Gson gson = new GsonBuilder().create();
-    private GetDrinkDao drinkDao = new GetDrinkDao();
+@WebServlet(name = "GetDrinkIdServlet", urlPatterns = "/get-drink-by-id")
+public class GetDrinkByIdServlet extends HttpServlet {
 
-    public SearchDrinkByNameServlet() {
+    private Gson gson = new GsonBuilder().create();
+    private GetDrinkDao getDrinkDao = new GetDrinkDao();
+
+    public GetDrinkByIdServlet() {
         super();
     }
-    
+
     @Override
     protected void doGet(
             HttpServletRequest request,
@@ -38,12 +40,21 @@ public class SearchDrinkByNameServlet extends HttpServlet{
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        String keyName = request.getParameter("key");
-        List<Drink> list = drinkDao.getDrinksByName(keyName);
-        String listDrinksString = this.gson.toJson(list);
+
+        String id = request.getParameter("id");
+        DrinkDetail drinkDetail = getDrinkDao.getDrinkDetailById(Integer.parseInt(id));
+
+        String listDrinksString = this.gson.toJson(drinkDetail);
+
         PrintWriter out = response.getWriter();
         out.print(listDrinksString);
         out.close();
     }
     
+    @Override
+    protected void doPut(
+            HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+        
+    }
 }
