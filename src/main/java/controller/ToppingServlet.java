@@ -15,20 +15,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import api.model.CommonResponse;
-import api.model.IdDrinkDelete;
-import model.Drink;
+import dao.ToppingDao;
+import model.Topping;
 
 /**
  *
  * @author HUY PHAM
  */
-@WebServlet(name = "DrinkServlet", urlPatterns = "/drink")
-public class DrinkServlet extends HttpServlet {
+@WebServlet(name = "ToppingServlet", urlPatterns = "/topping")
+public class ToppingServlet extends HttpServlet {
 
     private Gson gson = new GsonBuilder().create();
-    private DrinkDao drinkDao = new DrinkDao();
+    private ToppingDao toppingDao = new ToppingDao();
 
-    public DrinkServlet() {
+    public ToppingServlet() {
         super();
     }
 
@@ -40,8 +40,8 @@ public class DrinkServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Drink drink = this.gson.fromJson(request.getReader(), Drink.class);
-        drinkDao.insertNewDrink(drink);
+        Topping topping = this.gson.fromJson(request.getReader(), Topping.class);
+        toppingDao.insertNewTopping(topping);
         CommonResponse commonResponse = new CommonResponse("post successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
@@ -58,9 +58,8 @@ public class DrinkServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Drink drink = this.gson.fromJson(request.getReader(), Drink.class);
-        System.out.println(this.gson.toJson(drink));
-        drinkDao.updateDrink(drink);
+        Topping topping = this.gson.fromJson(request.getReader(), Topping.class);
+        toppingDao.updateTopping(topping);
         CommonResponse commonResponse = new CommonResponse("update successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
@@ -76,9 +75,8 @@ public class DrinkServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        String id_drink = request.getParameter("id_drink");
-        drinkDao.deleteDrink(Integer.parseInt(id_drink));
+        String id_topping = request.getParameter("id_topping");
+        toppingDao.deleteTopping(Integer.parseInt(id_topping));
         CommonResponse commonResponse = new CommonResponse("delete successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
