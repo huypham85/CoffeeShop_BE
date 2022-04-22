@@ -177,7 +177,7 @@ public class CustomerDao {
         return result;
     }
     
-    public int deleteCustomer(Customer customer){
+    public int deleteCustomer(int id){
         int result = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -190,7 +190,7 @@ public class CustomerDao {
                   PreparedStatement preparedStatement = connection
                         .prepareStatement(DELETE_CUSTOMER)) {
 
-            preparedStatement.setString(3, customer.getName_customer());
+            preparedStatement.setString(1, id+"");
 
             // sends the statement to the database server
             result = preparedStatement.executeUpdate();

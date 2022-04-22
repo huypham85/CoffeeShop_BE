@@ -64,6 +64,42 @@ public class GetDrinkDao {
         return list;
     }
     
+    public List<Drink> getDrinksByName(String name){
+        List<Drink> list = new ArrayList<Drink>();
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        try ( Connection connection = DriverManager
+                .getConnection(url, user, password); // Step 2:Create a statement using connection object
+                  PreparedStatement preparedStatement = connection
+                        .prepareStatement(GET_DRINKS_BY_NAME)) {
+
+            // sends the statement to the database server
+            
+            preparedStatement.setString(1, "%" + name + "%");
+            System.err.println(name);
+//            preparedStatement.setInt(1, 2);
+            ResultSet result = preparedStatement.executeQuery();
+            while(result.next()){
+                Drink drink = new Drink();
+                drink.setName_drink(result.getString(1));
+                drink.setPrice(result.getDouble(2));
+                drink.setImg(result.getString(3));
+                drink.setId_type(result.getInt(4));
+                drink.setDescript(result.getString(5));
+                list.add(drink);
+            }
+
+        } catch (SQLException e) {
+            // process INSERT_DRINK exception
+            printSQLException(e);
+        }
+        return list;
+    }
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

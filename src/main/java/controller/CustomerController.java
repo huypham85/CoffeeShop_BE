@@ -110,9 +110,10 @@ public class CustomerController extends HttpServlet {
              request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        String idCustomer = request.getParameter("id");
         
         Customer customer = this.gson.fromJson(request.getReader(), Customer.class);
-        customerDao.deleteCustomer(customer);
+        customerDao.deleteCustomer(Integer.parseInt(idCustomer));
         CommonResponse commonResponse = new CommonResponse("delete successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
