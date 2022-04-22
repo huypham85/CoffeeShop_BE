@@ -5,7 +5,6 @@
  */
 package controller;
 
-import dao.DrinkDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -16,11 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import api.model.CommonResponse;
 import api.model.IdBillDelete;
-import api.model.IdDrinkDelete;
 import dao.BillDao;
 import java.util.List;
 import model.Bill;
-import model.Drink;
 
 /**
  *
@@ -78,10 +75,9 @@ public class BillServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        IdBillDelete idBillDelete = this.gson.fromJson(request.getReader(), IdBillDelete.class);
-        System.out.println(idBillDelete.getId_bill());
-        billDao.deleteBill(idBillDelete.getId_bill());
+        String id_bill = request.getParameter("id_bill");
+        System.out.println(id_bill);
+        billDao.deleteBill(Integer.parseInt(id_bill));
         CommonResponse commonResponse = new CommonResponse("delete successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
