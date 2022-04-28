@@ -62,7 +62,19 @@ public class CustomerController extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        List<Customer> list = customerDao.getCustomers();
+        List<Customer> list;
+        String phoneNumber = request.getParameter("phone-number");
+        String idCustomer = request.getParameter("id");
+        if (phoneNumber != null && !phoneNumber.isEmpty()) {
+            list = customerDao.getCustomerByPhoneNumber(phoneNumber);
+        }
+        else if (idCustomer != null && !idCustomer.isEmpty()){
+            list = customerDao.getCustomersById(Integer.parseInt(idCustomer));
+        }
+        else {
+            list = customerDao.getCustomers();
+        }
+        
 
         String listCustomerString = this.gson.toJson(list);
 
@@ -98,9 +110,10 @@ public class CustomerController extends HttpServlet {
              request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        String idCustomer = request.getParameter("id");
         
         Customer customer = this.gson.fromJson(request.getReader(), Customer.class);
-        customerDao.deleteCustomer(customer);
+        customerDao.deleteCustomer(Integer.parseInt(idCustomer));
         CommonResponse commonResponse = new CommonResponse("delete successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
 
