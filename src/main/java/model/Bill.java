@@ -30,13 +30,6 @@ public class Bill {
         this.order_day = order_day;
     }
 
-    public Bill(int id_customer, String note, String address, Date order_day) {
-        this.id_customer = id_customer;
-        this.note = note;
-        this.address = address;
-        this.order_day = order_day;
-    }
-
     public int getId_bill() {
         return id_bill;
     }
