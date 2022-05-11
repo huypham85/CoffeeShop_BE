@@ -25,8 +25,8 @@ import static utils.NetworkUtils.user;
 public class CustomerDao {
 
     private static final String INSERT_CUSTOMER = "INSERT INTO customer (name_customer, phone_number, address) values (?,?,?)";
-    private static final String GET_CUSTOMERS = "SELECT name_customer, phone_number, address FROM customer";
-    private static final String UPDATE_CUSTOMER = "UPDATE customer set phone_number = ?, address = ? WHERE name_customer = ?";
+    private static final String GET_CUSTOMERS = "SELECT id_customer, name_customer, phone_number, address FROM customer";
+    private static final String UPDATE_CUSTOMER = "UPDATE customer name_customer = ?,set phone_number = ?, address = ? WHERE id_customer = ?";
     private static final String DELETE_CUSTOMER = "DELETE from customer WHERE name_customer = ?";
     private static final String GET_CUSTOMERS_BY_ID = "SELECT id_customer,name_customer, phone_number, address FROM customer WHERE id_customer = ?";
     private static final String GET_CUSTOMERS_BY_PHONE_NUMBER = "SELECT DISTINCT name_customer, phone_number, address FROM customer WHERE phone_number LIKE ?";
@@ -75,9 +75,10 @@ public class CustomerDao {
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
                 Customer customer = new Customer();
-                customer.setName_customer(result.getString(1));
-                customer.setPhone_number(result.getString(2));
-                customer.setAddress(result.getString(3));
+                customer.setId_customer(result.getInt(1));
+                customer.setName_customer(result.getString(2));
+                customer.setPhone_number(result.getString(3));
+                customer.setAddress(result.getString(4));
                 list.add(customer);
             }
 
@@ -107,9 +108,10 @@ public class CustomerDao {
             ResultSet result = preparedStatement.executeQuery();
             while(result.next()){
                 Customer customer = new Customer();
-                customer.setName_customer(result.getString(1));
-                customer.setPhone_number(result.getString(2));
-                customer.setAddress(result.getString(3));
+                customer.setId_customer(result.getInt(1));
+                customer.setName_customer(result.getString(2));
+                customer.setPhone_number(result.getString(3));
+                customer.setAddress(result.getString(4));
                 list.add(customer);
             }
         } catch (SQLException e) {
@@ -165,9 +167,10 @@ public class CustomerDao {
                   PreparedStatement preparedStatement = connection
                         .prepareStatement(UPDATE_CUSTOMER)) {
 
-            preparedStatement.setString(3, customer.getName_customer());
-            preparedStatement.setString(1, customer.getPhone_number());
-            preparedStatement.setString(2, customer.getAddress());
+            preparedStatement.setString(1, customer.getName_customer());
+            preparedStatement.setString(2, customer.getPhone_number());
+            preparedStatement.setString(3, customer.getAddress());
+            preparedStatement.setString(4, String.valueOf(customer.getId_customer()));
 
             // sends the statement to the database server
             result = preparedStatement.executeUpdate();
