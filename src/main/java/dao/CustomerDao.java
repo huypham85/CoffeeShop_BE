@@ -26,8 +26,8 @@ public class CustomerDao {
 
     private static final String INSERT_CUSTOMER = "INSERT INTO customer (name_customer, phone_number, address) values (?,?,?)";
     private static final String GET_CUSTOMERS = "SELECT id_customer, name_customer, phone_number, address FROM customer";
-    private static final String UPDATE_CUSTOMER = "UPDATE customer name_customer = ?,set phone_number = ?, address = ? WHERE id_customer = ?";
-    private static final String DELETE_CUSTOMER = "DELETE from customer WHERE name_customer = ?";
+    private static final String UPDATE_CUSTOMER = "UPDATE customer set name_customer = ?, phone_number = ?, address = ? WHERE id_customer = ?";
+    private static final String DELETE_CUSTOMER = "DELETE from customer WHERE id_customer = ?";
     private static final String GET_CUSTOMERS_BY_ID = "SELECT id_customer,name_customer, phone_number, address FROM customer WHERE id_customer = ?";
     private static final String GET_CUSTOMERS_BY_PHONE_NUMBER = "SELECT DISTINCT name_customer, phone_number, address FROM customer WHERE phone_number LIKE ?";
 

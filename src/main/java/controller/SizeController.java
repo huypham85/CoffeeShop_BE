@@ -43,8 +43,8 @@ public class SizeController extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-//        Size size = this.gson.fromJson(request.getReader(), Size.class);
-//        sizeDao.insertNewSize(size);
+        Size size = this.gson.fromJson(request.getReader(), Size.class);
+        sizeDao.insertNewSize(size);
         
         CommonResponse commonResponse = new CommonResponse("insert successfully");
         String commonResponseString = this.gson.toJson(commonResponse);

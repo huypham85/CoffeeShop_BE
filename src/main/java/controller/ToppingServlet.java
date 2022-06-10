@@ -76,6 +76,7 @@ public class ToppingServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         String id_topping = request.getParameter("id_topping");
+        System.out.println(id_topping);
         toppingDao.deleteTopping(Integer.parseInt(id_topping));
         CommonResponse commonResponse = new CommonResponse("delete successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
