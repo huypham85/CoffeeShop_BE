@@ -51,7 +51,7 @@ public class GetDrinkDao {
                         .prepareStatement(GET_DRINKS_BY_CATEGORY)) {
 
             // sends the statement to the database server
-//            preparedStatement.setInt(1, id_type);
+            preparedStatement.setInt(1, id_type);
             ResultSet result = preparedStatement.executeQuery();
             while(result.next()){
                 Drink drink = new Drink();
