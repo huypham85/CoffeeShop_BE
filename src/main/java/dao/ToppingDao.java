@@ -26,6 +26,7 @@ public class ToppingDao {
     private static final String INSERT_TOPPING = "INSERT INTO topping (name_topping, price_plus) values (?,?)";
     private static final String UPDATE_TOPPING = "UPDATE topping set name_topping = ?, price_plus = ? WHERE id_topping = ?";
     private static final String DELETE_TOPPING = "DELETE from topping WHERE id_topping = ?";
+    private static final String GET_TOPPING = "SELECT * FROM topping";
 
     public int insertNewTopping(Topping topping) {
         int result = 0;
@@ -98,6 +99,38 @@ public class ToppingDao {
             printSQLException(e);
         }
         return result;
+    }
+    
+    public List<Topping> getTopping() {
+        List<Topping> list = new ArrayList<Topping>();
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        try ( Connection connection = DriverManager
+                .getConnection(NetworkUtils.url, NetworkUtils.user, NetworkUtils.password); // Step 2:Create a statement using connection object
+                  PreparedStatement preparedStatement = connection
+                        .prepareStatement(GET_TOPPING)) {
+
+            // sends the statement to the database server
+            ResultSet result = preparedStatement.executeQuery();
+            while(result.next()){
+                Topping topping = new Topping();
+                topping.setId_topping(result.getInt(1));
+                topping.setName_topping(result.getString(2));
+                topping.setPrice_plus(result.getDouble(3));
+                list.add(topping);
+            }
+
+
+        } catch (SQLException e) {
+
+            printSQLException(e);
+        }
+        return list;
     }
 
     private void printSQLException(SQLException ex) {

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import api.model.CommonResponse;
 import dao.ToppingDao;
+import java.util.ArrayList;
+import java.util.List;
 import model.Topping;
 
 /**
@@ -83,6 +85,22 @@ public class ToppingServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.print(commonResponseString);
+        out.close();
+    }
+    
+    @Override
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        List<Topping> list = toppingDao.getTopping();
+        String listToppingString = this.gson.toJson(list);
+
+        PrintWriter out = response.getWriter();
+        out.print(listToppingString);
         out.close();
     }
 }
