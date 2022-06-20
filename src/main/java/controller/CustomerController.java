@@ -43,6 +43,7 @@ public class CustomerController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         Customer customer = this.gson.fromJson(request.getReader(), Customer.class);
         customerDao.insertNewCustomer(customer);

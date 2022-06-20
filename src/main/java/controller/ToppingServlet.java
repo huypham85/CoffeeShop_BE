@@ -41,6 +41,7 @@ public class ToppingServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         Topping topping = this.gson.fromJson(request.getReader(), Topping.class);
         toppingDao.insertNewTopping(topping);

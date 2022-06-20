@@ -59,6 +59,7 @@ public class BillDetailServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         
         JsonObject obj = this.gson.fromJson(request.getReader(), JsonObject.class);
         JsonObject customerObject = obj.getAsJsonObject("customer");

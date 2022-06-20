@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import api.model.CommonResponse;
-import api.model.IdBillDelete;
 import dao.BillDao;
 import java.util.List;
 import model.Bill;

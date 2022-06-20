@@ -42,6 +42,7 @@ public class NewsController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         News news = this.gson.fromJson(request.getReader(), News.class);
         newsDao.insertNews(news);
