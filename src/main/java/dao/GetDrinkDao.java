@@ -23,9 +23,9 @@ import model.Topping;
  * @author Dang Dung
  */
 public class GetDrinkDao {
-    private static final String url = "jdbc:mysql://us-cdbr-east-05.cleardb.net:3306/heroku_f866d7997438cb1?useSSL=false";
-    private static final String user = "bf9faddc3d7c52";
-    private static final String password = "fb891e29";
+    public static final String url = "jdbc:mysql://103.141.141.29:6603/mysql-heroku";
+    public static final String user = "root";
+    public static final String password = "password";
 
     private static final String INSERT_CUSTOMER = "INSERT INTO customer (name_customer, phone_number, address) values (?,?,?)";
     private static final String GET_DRINKS_BY_CATEGORY = "SELECT name_drink, price, img, id_type, descript FROM drink WHERE id_type = ?";
