@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Bill;
 import model.BillDetail;
+import model.BillReturn;
 import model.BookTopping;
 import model.Customer;
 import model.Drink;
@@ -42,9 +43,29 @@ public class BillDetailDao {
     private static final String GET_BILL_DETAIL_BY_BILL = "SELECT * from billdetail WHERE id_bill = ?";
     
     private GetDrinkDao getDrinkDao;
+    private BillDao billDao;
+    private CustomerDao customerDao;
 
     public BillDetailDao() {
         getDrinkDao = new GetDrinkDao();
+        billDao = new BillDao();
+        customerDao = new CustomerDao();
+    }
+    
+    public BillReturn getBillDisplay(int id) {
+        BillReturn billReturn = new BillReturn();
+        Bill bill = billDao.getBillById(id);
+        System.err.println(bill.getId_bill());
+        billReturn.setBill(bill);
+        billReturn.setCustomer(customerDao.getCustomerById(bill.getId_customer()));
+        List<BillDetail> list = getListBillDetail(id);
+        double totalMoney = 0;
+        for (BillDetail i : list) {
+            totalMoney += i.getPrice()*i.getAmount();
+        }
+        billReturn.setListBillDetail(list);
+        billReturn.setTotalMoney(totalMoney);
+        return billReturn;
     }
     
     public List<BillDetail> getListBillDetail(int id) {

@@ -19,10 +19,9 @@ import model.News;
  * @author hdmin
  */
 public class NewsDao {
-    private static final String url = "jdbc:mysql://us-cdbr-east-05.cleardb.net:3306/heroku_f866d7997438cb1?useSSL=false";
-    private static final String user = "bf9faddc3d7c52";
-    private static final String password = "fb891e29";
-
+    public static final String url = "jdbc:mysql://103.141.141.29:6603/mysql-heroku";
+    public static final String user = "root";
+    public static final String password = "password";
     private static final String INSERT_NEWS = "INSERT INTO news (name_news,img,descript) values (?,?,?)";
     private static final String GET_NEWS = "SELECT id_news,name_news,img,descript FROM news";
     private static final String GET_NEWS_ID = "SELECT id_news,name_news,img,descript FROM news WHERE id_news = ?";

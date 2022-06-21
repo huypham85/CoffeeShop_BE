@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import api.model.CommonResponse;
-import api.model.IdBillDelete;
 import dao.BillDao;
 import java.util.List;
 import model.Bill;
+import model.BillResponse;
 
 /**
  *
@@ -59,7 +59,7 @@ public class BillServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        List<Bill> list = billDao.getBills();
+        List<BillResponse> list = billDao.getBills();
 
         String listBillsString = this.gson.toJson(list);
 

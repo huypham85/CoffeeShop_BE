@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Bill;
 import model.BillDetail;
+import model.BillReturn;
 import model.BookTopping;
 import model.Customer;
 import model.News;
@@ -59,6 +60,7 @@ public class BillDetailServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         
         JsonObject obj = this.gson.fromJson(request.getReader(), JsonObject.class);
         JsonObject customerObject = obj.getAsJsonObject("customer");
@@ -145,16 +147,19 @@ public class BillDetailServlet extends HttpServlet {
         List<BillDetail> list = new ArrayList();
         
         String idBill = request.getParameter("id");
+        
+        BillReturn billReturn = new BillReturn();
         if(idBill == null || idBill == "")
         {
 //            list = billDetailDao.getListBillDetail();
         }
         else
         {
-            list = billDetailDao.getListBillDetail(Integer.parseInt(idBill));
+//            list = billDetailDao.getListBillDetail(Integer.parseInt(idBill));
+            billReturn = billDetailDao.getBillDisplay(Integer.parseInt(idBill));
         }
 
-        String listNewsString = this.gson.toJson(list);
+        String listNewsString = this.gson.toJson(billReturn);
                 CommonResponse commonResponse = new CommonResponse("get successfully");
 
         PrintWriter out = response.getWriter();

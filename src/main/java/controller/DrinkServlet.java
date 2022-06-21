@@ -39,7 +39,7 @@ public class DrinkServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        System.setProperty("file.encoding","UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         Drink drink = this.gson.fromJson(request.getReader(), Drink.class);
         drinkDao.insertNewDrink(drink);

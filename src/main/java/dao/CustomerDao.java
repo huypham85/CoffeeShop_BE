@@ -30,6 +30,8 @@ public class CustomerDao {
     private static final String DELETE_CUSTOMER = "DELETE from customer WHERE id_customer = ?";
     private static final String GET_CUSTOMERS_BY_ID = "SELECT id_customer,name_customer, phone_number, address FROM customer WHERE id_customer = ?";
     private static final String GET_CUSTOMERS_BY_PHONE_NUMBER = "SELECT DISTINCT name_customer, phone_number, address FROM customer WHERE phone_number LIKE ?";
+    
+    private static final String GET_CUSTOMERS_BY_BILL_ID = "SELECT DISTINCT name_customer, phone_number, address FROM customer WHERE id_customer = (SELECT DISTINCT id_customer FROM id_bill = ?)";
 
     public int insertNewCustomer(Customer customer) {
         int result = 0;
@@ -118,6 +120,34 @@ public class CustomerDao {
             printSQLException(e);
         }
         return list;
+    }
+    public Customer getCustomerById(int id){
+        Customer res = new Customer();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        try ( Connection connection = DriverManager
+                .getConnection(url, user, password); // Step 2:Create a statement using connection object
+                  PreparedStatement preparedStatement = connection
+                        .prepareStatement(GET_CUSTOMERS_BY_ID)) {
+            
+            preparedStatement.setInt(1,id);
+
+            // sends the statement to the database server
+            ResultSet result = preparedStatement.executeQuery();
+            if (result.next()){
+                res.setId_customer(result.getInt(1));
+                res.setName_customer(result.getString(2));
+                res.setPhone_number(result.getString(3));
+                res.setAddress(result.getString(4));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return res;
     }
     
     public List<Customer> getCustomerByPhoneNumber(String pnb){
