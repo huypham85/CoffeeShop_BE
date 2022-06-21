@@ -42,9 +42,11 @@ public class NewsController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        System.setProperty("file.encoding","UTF-8");
 
         News news = this.gson.fromJson(request.getReader(), News.class);
         newsDao.insertNews(news);
+        System.err.println("done");
         
         CommonResponse commonResponse = new CommonResponse("insert successfully");
         String commonResponseString = this.gson.toJson(commonResponse);
